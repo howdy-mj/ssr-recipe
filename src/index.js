@@ -8,6 +8,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import rootReducer from './modules';
+import { loadableReady } from '@loadable/component';
 
 const store = createStore(
   rootReducer,
@@ -15,16 +16,27 @@ const store = createStore(
   applyMiddleware(thunk),
 );
 
-ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById('root'),
-);
+// 재사용할 수 있도록 컴포넌트로 묶음
+const Root = () => {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  );
+};
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+const root = document.getElementById('root');
+
+// 프로덕션 환경에서는 loadableReady와 hydrate를
+// 개발 환경에서는 기존 방식으로 처리
+if (process.env.NODE_ENV === 'production') {
+  loadableReady(() => {
+    ReactDOM.hydrate(<Root />, root);
+  });
+} else {
+  ReactDOM.hydrate(<Root />, root);
+}
+
 serviceWorker.unregister();

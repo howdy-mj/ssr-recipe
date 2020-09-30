@@ -5,3 +5,9 @@
 ---
 
 redux-saga는 보류
+
+### 코드스플리팅
+
+```
+$ yarn add @loadable/component @loadable/server @loadable/webpack-plugin @loadable/babel-plugin
+```

@@ -4,6 +4,10 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.9.0",
+    "@loadable/babel-plugin": "^5.13.2",
+    "@loadable/component": "^5.13.2",
+    "@loadable/server": "^5.13.2",
+    "@loadable/webpack-plugin": "^5.13.0",
     "@svgr/webpack": "4.3.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -143,6 +147,9 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      "@loadable/babel-plugin"
     ]
   }
 }
